@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'org.openrewrite.rewrite' version '7.1.2'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal() // For your locally published recipe
+    mavenCentral()
+}
+
+dependencies {
+    rewrite 'com.rewrite:openrewrite-custom-recipes:1.0.0'
+    // OpenRewrite dependencies
+    rewrite platform('org.openrewrite:rewrite-bom:8.23.1')
+    rewrite 'org.openrewrite:rewrite-java'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+rewrite {
+    activeRecipe("com.rewrite.Java21MigrationRecipes") // Activate your recipe
+//    activeRecipe("com.rewrite.ChangeConstantsReference") // Recipe's fully qualified name
+
+}
+
+test {
+    useJUnitPlatform()
+}
